@@ -2,8 +2,8 @@
 
 one:
   brand: MyString
-  country: one
+  Location: one
 
 two:
   brand: MyString
-  country: two
+  Location: two

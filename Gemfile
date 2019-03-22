@@ -39,11 +39,16 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Integrate active admin CMS
 gem 'activeadmin'
 
+# For proloading list of countries
+gem 'country_select', '~> 4.0'
+
 # Plus integrations with
 gem 'devise'
 gem 'cancancan'
 gem 'draper'
 gem 'pundit'
+
+gem 'pry', '~> 0.12.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
