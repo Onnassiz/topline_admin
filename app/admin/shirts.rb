@@ -1,6 +1,6 @@
 ActiveAdmin.register Shirt do
   permit_params :name, :price, :in_stock, :image, :brand_id
-  
+
   index do
     selectable_column
     column :name
@@ -11,9 +11,6 @@ ActiveAdmin.register Shirt do
       link_to shirt.image_file_name, shirt.image.url
     end
     column :created_at
-    # column :image_file_size, sortable: :image_file_size do |firmware| "#{firmware.image_file_size / 1024} KB" end
-    # column "Version" do |firmware| "#{firmware.major_version}.#{firmware.minor_version}.#{firmware.patch_version}" end
-    # column :created_at
     actions
   end
 
@@ -26,5 +23,20 @@ ActiveAdmin.register Shirt do
       f.input :image, required: true, as: :file
     end
     f.actions
+  end
+
+  action_item :publish, only: :show do
+    link_to "Unpublish", toggle_publish_admin_shirt_path(shirt), method: :put if shirt.in_stock?
+  end
+
+  action_item :publish, only: :show do
+    link_to "Publish", toggle_publish_admin_shirt_path(shirt), method: :put unless shirt.in_stock?
+  end
+
+  member_action :toggle_publish, method: :put do
+    shirt = Shirt.find(params[:id])
+    shirt.in_stock = !shirt.in_stock
+    shirt.save
+    redirect_to admin_shirt_path(shirt)
   end
 end
